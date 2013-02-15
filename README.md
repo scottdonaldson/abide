@@ -1,2 +1,1 @@
-abide
-=====
+# Website for Abide Idea

@@ -1,0 +1,18 @@
+/* TEAM */
+
+Parsley & Sprouts
+http://www.parsleyandsprouts.com
+St. Paul, MN, USA
+
+Designer: Lisa Otto
+
+Developer: Scott Donaldson
+Site: http://www.scottdonaldson.net
+Twitter: @scottpdonaldson
+
+/* SITE */
+
+Last update: 2013/01/13
+Standards: HTML5, CSS3
+Components: WordPress 3.5, HTML5 Boilerplate (normalize.css, jQuery 1.8.2, Modernizr 2.6.2)
+Fonts: Andes Condensed (Regular, Italic, Semibold) from Fontspring

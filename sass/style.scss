@@ -1,0 +1,1115 @@
+/* 
+ *	By config.rb, the CSS will always be minified.
+ */
+
+// ----- imports
+
+@import 'compass';
+
+// ----- colors
+
+$red: #CD1F2F; .red { color: $red; }
+$grey: #9B9695; .grey { color: $grey; }
+$lt-grey: #E8EBE6; .lt-grey { color: $lt-grey; }
+::selection { background: $red; color: $lt-grey; }
+::-moz-selection { background: $red; color: $lt-grey; }
+
+// ----- fonts
+/*!
+ * Web Fonts from fontspring.com
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ * Fully installable fonts can be purchased at http://www.fontspring.com
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Fontspring. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2012 Fontspring
+ *
+ * The fonts included are copyrighted by the vendor listed below.
+ *
+ * Vendor:      Latinotype
+ * License URL: http://www.fontspring.com/fflicense/latinotype
+ *
+ */
+@font-face {
+    font-family: 'Andes';
+    src: url('../fonts/Andes-Condensed-Regular-webfont.eot');
+    src: url('../fonts/Andes-Condensed-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Andes-Condensed-Regular-webfont.woff') format('woff'),
+         url('../fonts/Andes-Condensed-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Andes-Condensed-Regular-webfont.svg#andes_condensedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Andes';
+    src: url('../fonts/Andes-Condensed-SemiBold-webfont.eot');
+    src: url('../fonts/Andes-Condensed-SemiBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Andes-Condensed-SemiBold-webfont.woff') format('woff'),
+         url('../fonts/Andes-Condensed-SemiBold-webfont.ttf') format('truetype'),
+         url('../fonts/Andes-Condensed-SemiBold-webfont.svg#andes_condensed_semiboldSBd') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Andes';
+    src: url('../fonts/Andes-Condensed-Regular-Italic-webfont.eot');
+    src: url('../fonts/Andes-Condensed-Regular-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Andes-Condensed-Regular-Italic-webfont.woff') format('woff'),
+         url('../fonts/Andes-Condensed-Regular-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/Andes-Condensed-Regular-Italic-webfont.svg#andes_condenseditalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot');
+	src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.svg#icomoon') format('svg'),
+		url('../fonts/icomoon.woff') format('woff'),
+		url('../fonts/icomoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family: 'icomoon';
+	font-style: normal;
+	speak: none;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-video:before {
+	content: "\e000";
+	font-size: 80%; // video icon bumps up higher than the others like it, so we scale it back manually
+}
+.icon-image:before {
+	content: "\e001";
+}
+.icon-article:before {
+	content: "\e002";
+	font-size: 80%;
+}
+.icon-prev:before {
+	content: "\e003";
+}
+.icon-next:before {
+	content: "\e004";
+}
+.icon-close:before {
+	content: "\e005";
+	position: relative;
+	left: 1px;		// for some reason icon-close appears too far to the left...
+}
+.icon-plus:before {
+	content: "\e006";
+}
+
+// ----- mixins
+
+@mixin tight {
+	margin: 0;
+	padding: 0;
+}
+
+@mixin transit {
+	@include transition(0.2s ease-in-out);
+}
+
+
+// ----- styles
+
+* { @include box-sizing(border-box); }
+
+body {
+	background: url(../images/grid.png);
+	font-family: 'Andes', Helvetica, Arial, sans-serif;
+
+	.lt-ie9 & {
+		min-width: 960px;
+	}
+}
+
+a, a:visited { 
+	color: $red;
+	text-decoration: none;
+	@include transit;
+
+	&:active,
+	&:hover {
+		color: $grey;
+	}
+
+	header &,
+	#main &,
+	footer & {
+		// Include transition (exclude links in the admin bar)
+		@include transit; 
+	}
+}
+
+p {
+	@media screen and (min-width: 1300px) {
+		font-size: 20px;
+	}
+	line-height: 1.5;
+}
+
+.small { font-size: 80%; }
+
+// ----- layout
+
+	/* ----- Structure guide:
+
+		WIDTH */
+		$large: 1140px; //	menu in header drops below logo
+		$med:   900px;  //	compass drops out (goes relative)
+		$small: 640px;  //	left and right stack on top of each other
+
+		/*
+		HEIGHT
+		400px	header and compass go relative
+		-------------------------------------------------- */
+
+.full-width {
+	margin: 0 auto;
+	padding-left: 10%;
+	padding-right: 10%;
+	width: 100%;
+	@media screen and (max-width: 1200px) {
+		padding-left: 8%;
+		padding-right: 8%;
+	}
+	@media screen and (max-width: 960px) {
+		padding-left: 6%;
+		padding-right: 6%;
+	}
+	@media screen and (max-width: 760px) {
+		padding-left: 4%;
+		padding-right: 4%;
+	}
+
+	.lt-ie9 & {
+		padding-left: 0;
+		padding-right: 0;
+
+		.full-content { // .full-content is only in use for IE8 and below
+			margin: 0 auto;
+			padding: 0 40px;
+			width: 1040px;
+		}
+	}
+}
+
+header .full-content { position: relative; }
+
+// How we divide the page into two columns.
+// Parents almost always need to be clearfixed.
+.left {
+	float: left;
+	padding-right: 80px;
+	width: 50%;
+
+	@media screen and (max-width: $med) {
+		padding-right: 20px;
+	}
+
+	@media screen and (max-width: $small) {
+		padding: 0;
+		width: 100%;
+	}
+
+	.lt-ie8 & {
+		width: 440px;
+	} 
+}
+
+.right {
+	float: right;
+	padding-left: 80px;
+	width: 50%;
+	@media screen and (max-width: $med) {
+		padding-left: 20px;
+	}
+	@media screen and (max-width: $small) {
+		padding: 0;
+		width: 100%;
+	}
+
+	.lt-ie8 & {
+		width: 440px;
+	} 
+}
+
+// ----- compass
+
+.compass_container {
+	height: 0;
+	left: 0;
+	overflow: visible;
+	position: relative;
+	top: -250px;
+	width: 100%;
+	z-index: 1000;
+
+	#compass {
+		margin: 0 auto;
+		position: relative;
+		width: 1px;
+	}
+
+	img { 
+		max-width: none;
+		position: absolute; 
+	}
+
+	.compass,
+	.needle,
+	.circle {
+		left: -90px; // formerly -105, always 1/2 of width
+		top: 15px;
+		width: 180px; // formerly 210
+	}
+	.circle { top: 18px; } // the above top positioning value + 3
+
+	.touch & {
+		position: relative !important;
+		z-index: 1;
+	}
+	@media screen and (max-width: $med) {
+		position: relative !important;
+		top: 0 !important;
+		z-index: 1;
+	}
+
+	.no-positionfixed & {
+		position: relative !important;
+		top: 0 !important;
+		z-index: 1;
+	}
+
+	@media screen and (max-height: 400px) {
+		position: relative;
+		top: 0;
+	}
+
+	&.fixed {
+		position: fixed;
+		.lt-ie9 & {
+			min-width: 1040px; // Need to set a minimum width in IE8 and below
+		}					   // so that compass doesn't stay in exact center on screen resizing
+	}
+}
+// Output 120 (!) CSS transforms to allow us to rotate the compass
+@for $i from 0 through 120 {
+	[data-rotate="#{3*$i}"] {
+		@include transform(rotate(#{3*$i}deg))
+	}
+}
+
+// ----- header
+
+header {
+	background: #000;
+	padding-top: 30px;
+	padding-bottom: 15px;
+	position: fixed;
+	top: 0;
+	@include transit;
+	z-index: 100;
+	&.miniature {
+		padding-top: 20px;
+		padding-bottom: 0;
+	}
+
+	@media screen and (max-height: 400px) {
+		position: relative;
+	}
+
+	.no-positionfixed & {
+		position: relative;
+	}
+
+	.admin-bar & { // for Wordpress admin bar
+		top: 28px;
+	}
+}
+
+.logo {
+	border-bottom: 10px solid #000;
+	float: left;
+	max-width: 500px;
+	min-width: 350px;
+	overflow: hidden; // this is how we hide the tagline on miniature size
+	position: relative;
+	@include transition(0);
+	width: 38%;
+
+	@media screen and (max-width: $med) {
+		display: block;
+		float: none;
+		margin: 0 auto -25px;
+	}
+
+	@media screen and (max-width: 700px) {
+		min-width: 0;
+		width: 100%;
+	}
+	@media screen and (max-width: 540px) {
+		margin-bottom: -15px;
+	}
+
+	.miniature & {
+		margin-bottom: -10px;
+		top: -15px;
+		img {
+			position: relative;
+			top: 15px;
+		}
+		@media screen and (max-width: $med) {
+			margin-bottom: -35px;
+		}
+		@media screen and (max-width: 540px) { 	// make sure logo doesn't get cut off
+			margin-bottom: -25px;
+			top: -10px;							// but the tagline does
+			img { top: 10px; }
+		}
+	}
+}
+
+nav {
+	bottom: 15px;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	text-transform: uppercase; 
+
+	ul { 
+		@include clearfix;
+		@include tight; 
+	}
+	
+	li {
+		display: inline-block;
+		margin-top: 5%;
+
+		a,
+		a:visited {
+			color: $grey;
+			font-size: 26px;
+			padding: 0 10px;
+			position: relative;
+			
+			&:hover,
+			&:active {
+				color: $red;
+			}
+			@media screen and (max-width: 1100px) {
+				font-size: 20px;
+			}
+			@media screen and (max-width: 650px) {
+				font-size: 16px;
+			}
+			@media screen and (max-width: 450px) {
+				font-size: 14px;
+			}	
+			@media screen and (max-width: 400px) {
+				font-size: 12.5px;
+			}		
+
+			.miniature & {
+				font-size: 20px;
+				@media screen and (max-width: 650px) {
+					font-size: 16px;
+				}
+				@media screen and (max-width: 400px) {
+					font-size: 14px;
+				}		
+			}
+
+			.lt-ie9 & {
+				font-size: 22px;
+			}
+		}
+
+		.lt-ie8 & {
+			float: left;
+			padding: 0 10px;
+			display: block; // inline-block's a no go in IE7
+		}
+
+		@media screen and (max-width: $med) {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		@media screen and (max-width: $small) {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+
+	.miniature & {
+		bottom: 8px;
+	}
+
+	@media screen and (max-width: $med) {
+		bottom: 0;
+		height: auto;
+		position: relative;
+		width: 100%;
+	}
+	
+}
+
+.bar {
+	background: $red;
+	bottom: 0;
+	display: none;
+	height: 5px;
+	position: absolute;
+	width: 0;
+
+	.miniature & {
+		display: block;
+	}
+}
+
+// ----- masthead 
+
+#masthead {
+	margin-top: 100px; // placeholder for the header - will change via js
+	padding: 50px 5%;
+	position: relative;
+
+	.lt-ie9 & {
+		padding-top: 70px;
+	}
+
+	.lt-ie8 & {
+		padding: 180px 0 50px;
+	}
+
+	@media screen and (max-width: $med) {
+		padding: 40px 5%;
+	}
+
+	@media screen and (max-height: 400px) { // On screens of less than 400px high,		
+		margin-top: 0 !important;			// header goes relative instead of fixed,
+	}										// so we lose the margin here.
+	
+	.no-positionfixed & {
+		margin-top: 0 !important;
+	}
+
+	.content {
+		background-image: url(../images/path.png);
+		background-position: center 80%;
+		background-repeat: no-repeat;
+		background-size: 80% auto;
+		padding: 0 10%;
+		position: relative;
+		text-align: center;
+		top: -50px;
+		width: 100%;
+		@media screen and (max-width: 1280px) {
+			background-size: 86% auto;
+		}
+		@media screen and (max-width: $large) {
+			background-size: 100% auto;
+			padding: 0;
+		}
+		@media screen and (max-width: $small) {
+			background-image: none;
+		}
+		.lt-ie9 & {
+			background-image: url(../images/path_ie.png);
+			padding-bottom: 0;
+		}
+		.lt-ie8 & {
+			width: 80%;
+		}
+	}
+
+	h2 { 
+		font-size: 64px; 
+		height: 140px;
+		margin: 0 0 360px;
+		padding: 30px 10% 0;
+
+		@media screen and (min-width: 1500px) {
+			font-size: 72px;
+		}
+		@media screen and (max-width: 1360px) {
+			font-size: 58px;
+			padding-right: 5%;						// Want to make sure it never goes
+			padding-left: 5%;						// onto 3 lines, so we adjust the padding
+		}											// as needed
+		@media screen and (max-width: 1000px) {
+			font-size: 52px;
+		}
+
+		@media screen and (max-width: $med) {
+			font-size: 48px;
+			height: auto;
+			margin-bottom: 20px;
+		}
+		// Eventually, no vertical responsitivity
+		@media screen and (max-width: 700px) {
+			font-size: 46px;
+		}
+		@media screen and (max-width: $small) {
+			font-size: 36px;
+		}
+		@media screen and (max-width: 500px) {
+			font-size: 30px;
+		}
+
+		.lt-ie9 & {
+			font-size: 55px;
+			margin-bottom: 330px;
+		}
+		.lt-ie8 & {
+			margin-bottom: 300px;
+		}
+
+		@media screen and (max-height: 400px) {
+			height: auto;
+		}
+	}
+
+	h3 { 
+		font-size: 34px; 
+		margin: 0;
+		padding-bottom: 80px;
+		@media screen and (max-width: $med) {
+			padding-bottom: 50px;
+			margin-top: 250px;
+		}
+		@media screen and (max-width: 700px) {
+			font-size: 26px;
+		}
+		@media screen and (max-width: $small) {
+			font-size: 22px;
+			padding-bottom: 40px;
+		}
+		.lt-ie9 & {
+			padding-bottom: 0;
+		}
+	}
+
+	.lt-ie8 & {
+		z-index: 99;
+	}
+}
+
+.left, .right {
+	position: relative;
+	z-index: 10;
+}
+
+// ----- modules
+
+.module {
+	border-top: 1px solid $red;
+	padding-bottom: 160px;
+	@media screen and (min-width: $small) {
+		padding-bottom: 160px !important; // override any gliding that occurs
+	}
+	@include transit;
+	@media screen and (max-width: $small) {
+		padding-bottom: 120px;
+	}
+
+	h2 {
+		color: $red;
+		display: block;
+		font-size: 48px;
+		margin: 0;
+		position: relative;
+		text-transform: uppercase;
+		top: -69px;
+
+		span {
+			border-bottom: 5px solid $red;
+		}
+	}
+
+	h3 { 
+		font-size: 1.8em; 
+		margin-top: 0;
+		@media screen and (max-width: $small) {
+			font-size: 1.4em;
+			margin-top: 1em;
+		}
+	}
+}
+
+// ----- specialties
+
+#specialties {
+	background: url(../images/grain1.jpg);
+	@media screen and (max-width: 400px) {
+		padding-bottom: 160px;
+	}
+
+	ul { 
+		@include tight; 
+	}
+	li {
+		background: #F4F4F4;
+		border: 1px solid $red;
+		color: $red;
+		cursor: pointer;
+		float: left;
+		font-size: 34px;
+		list-style-type: none;
+		margin: 0 0 4% 0;
+		padding: 40px 0;
+		position: relative;
+		text-align: center;
+		@include transit;
+		width: 48%;
+		&.odd { 
+			margin-right: 4%; 
+			@media screen and (max-width: 1020px) {
+				margin-right: 0;
+			}
+		}
+
+		&:hover,
+		&.inactive:hover {
+			background: $red;
+			color: $lt-grey;
+			.icon-plus {
+				background: $red;
+			}
+		}
+		&.inactive {
+			background: #f4f4f4;
+			color: $grey;
+		}
+
+		.icon-plus {
+			background: $lt-grey;
+			font-size: 14px;
+			padding: 5px 5px 2px;
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			@include transit;
+			@media screen and (max-width: 1020px) {
+				top: 21px;
+			}
+			@media screen and (max-width: $small) {
+				right: 10px;
+				top: 11px;
+			}
+		}
+
+		@media screen and (max-width: 1350px) {
+			font-size: 26px;
+		}
+		@media screen and (max-width: 1200px) {
+			font-size: 20px;
+		}
+		@media screen and (max-width: 1020px) {
+			float: none;
+			padding: 20px;
+			width: 100%;
+			br { display: none; }
+		}
+		@media screen and (max-width: $small) {
+			padding: 10px 20px;
+		}
+
+		.lt-ie9 & {
+			font-size: 28px;
+		}
+	}
+
+	.right { 
+		position: relative;
+	}
+	.content { 
+		padding-left: 20px; 
+		@media screen and (max-width: $med) {
+			padding: 0;
+		}
+	}
+}
+.infobox { // Also used in client quotes and after submitting an idea
+	background: #f4f4f4;
+	border: 1px solid $red;
+	display: none;
+	padding: 60px 20px 20px;
+	position: absolute;
+	top: 0;
+
+	&.specialty { 
+		.lt-ie9 & { margin-right: 100px; }
+	}
+
+	@media screen and (max-width: 760px) {
+		padding-top: 40px;
+	}
+}
+
+.utilities {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	text-align: right;
+	div {
+		background: $lt-grey;
+		color: $red;
+		cursor: pointer;
+		display: inline-block;
+		font-size: 20px;
+		padding: 5px 2px 1px;
+		margin-left: 15px;
+		text-align: center;
+		@include transit;
+		width: 45px;
+		&:hover {
+			color: $grey;
+		}
+		@media screen and (max-width: 760px) {
+			font-size: 16px;
+			height: 25px;
+			padding: 4px;
+			width: 30px;
+		}
+	}
+	.icon-prev,
+	.icon-next {
+		width: 60px;
+		@media screen and (max-width: 760px) {
+			width: 40px;
+		}
+	}
+
+	.lt-ie8 & { // inline-block is a no-go in IE7, so we position differently
+		width: 240px;
+		div {
+			display: block; 
+			float: left;
+		}
+	}
+}
+
+// ----- clients
+
+#clients {
+	position: relative;
+
+	ul { @include tight; }
+	li {
+		background: #f4f4f4;
+		border: 1px solid $red;
+		color: $red;
+		cursor: pointer;
+		font-size: 1.8em;
+		list-style-type: none;
+		margin: 0 0 20px 0;
+		padding: 40px 60px;
+		position: relative;
+		text-align: center;
+		@include transit;
+
+		@media screen and (max-width: 1350px) {
+			font-size: 26px;
+		}
+		@media screen and (max-width: 1200px) {
+			font-size: 20px;
+		}
+		@media screen and (max-width: 1020px) {
+			padding: 20px 50px 20px 20px;
+		}
+
+		&:active,
+		&:hover,
+		&.inactive:hover {
+			background: $red;
+			color: $lt-grey;
+			.icon-plus {
+				background: $red;
+			}
+		}
+		&.inactive {
+			background: #f4f4f4;
+			color: $grey;
+		}
+
+		.icon-plus {
+			background: $lt-grey;
+			font-size: 14px;
+			padding: 5px 5px 2px;
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			@include transit;
+			@media screen and (max-width: $small) {
+				right: 10px;
+				top: 10px;
+			}
+		}		
+	}
+
+	.left { position: relative; }
+	.content { 
+		padding-right: 20px; 
+		@media screen and (max-width: $med) {
+			padding: 0;
+		}
+	}
+}
+
+.quote {
+	margin-right: 100px; // margin-right needs to match padding on parent .left
+	@media screen and (max-width: $med) {
+		margin-right: 20px; // see above comment
+	}
+	@media screen and (max-width: $small) {
+		margin-right: 0; 
+	}
+
+	.lt-ie8 & {
+		width: 400px;
+	}
+}
+
+.faded { 
+	@include opacity(0); 
+	
+	.lt-ie8 & {
+		filter: alpha(opacity=0);
+	}
+}
+
+// ----- about
+
+#about {
+	background: url(../images/grain1.jpg);
+
+	.content { 
+		padding-left: 20px; 
+		@media screen and (max-width: $med) {
+			padding: 0;
+		}
+	}
+
+	img {
+		border: 1px solid $red;
+	}
+
+	@media screen and (max-width: $small) {
+		.left, .right {
+			float: none;
+			padding: 0;
+			width: 100%;
+			img {
+				width: 100%;
+			}
+		}
+		.content { padding: 0; }
+	}
+}
+
+// ----- connect
+
+#connect {
+	position: relative;
+
+	.left { 
+		font-size: 18px; 
+		h3 {
+			@media screen and (max-width: $small) {
+				margin-top: 0;
+			}
+		}
+	}
+
+	.right {
+		.content { 
+			padding-left: 20px; 
+			@media screen and (max-width: $med) {
+				padding: 0;
+			}
+		}
+
+		a, a:visited {
+			color: $grey;
+			font-size: 22px;
+			line-height: 1.6;
+			margin-right: 4px;
+			@include transition(0); // no transition since icons can't handle it
+
+			span {
+				color: #000;
+				margin-right: 4px;
+			}
+
+			&:active,
+			&:hover { // all go to red on hover (icon and text)
+				color: $red;
+				span { color: $red; }
+			}
+
+			@media screen and (max-width: $small) {
+				font-size: 18px;
+			}
+		}
+	}
+
+	form {
+		margin-top: 50px;
+		padding-right: 140px;
+		position: relative;
+
+		.lt-ie8 & {
+			padding-right: 145px;
+		}
+	}
+
+	input {
+		border: 1px solid $grey;
+		@include border-radius(0);
+		@include box-shadow(0);
+		color: $grey;
+		font-family: 'Andes', Helvetica, Arial, sans-serif;
+		@include transit;
+		&:focus {
+			color: #000;
+		}
+		&.invalid {
+			border: 1px solid $red;
+		}
+	}
+
+	#link {
+		background: $lt-grey;
+		padding: 5px;
+		margin-right: 140px;
+		width: 100%;
+	}
+
+	input[type="submit"] {
+		background: #f4f4f4;
+		border-color: $red;
+		color: $red;
+		padding: 5px;
+		position: absolute;
+		right: 0;
+		top: 52px;
+		@include transit;
+		width: 37%;
+		@media screen and (max-width: 1100px) {
+			width: 43%;
+		}
+		@media screen and (max-width: 700px) {
+			width: 50%;
+		}
+
+		&:active,
+		&:hover {
+			background: $red;
+			color: $lt-grey;
+		}
+	}
+}
+
+.types {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 140px;
+
+	span {
+		color: $grey;
+		cursor: pointer;
+		float: left;
+		font-size: 1.7em;
+		text-align: right;
+		@include transit;
+		width: 33.333%;
+		&:active,
+		&:hover,
+		&.chosen {
+			color: #000;
+		}
+		&.invalid {
+			color: $red;
+		}
+		.lt-ie9 & {
+			&.icon-video,
+			&.icon-article {
+				&:before {
+					font-size: 21px;
+				}
+			}
+		}
+		.lt-ie8 & { // IE7 adds a span within a span
+			width: 45px;
+			&.icon-image span {
+				font-size: 25px;
+				position: relative;
+				top: -4px;
+			}
+			&.icon-video span,
+			&.icon-article span {
+				font-size: 21px;
+			}
+		}
+	}
+}
+.thanks {
+	padding: 20px;
+	text-align: center;
+	width: 100%;
+
+	.utilities { 
+		margin-bottom: 30px;
+	}
+}
+.submitted .thanks {
+	display: block;
+
+	.icon-prev,
+	.icon-next {
+		display: none; // no navigation here, of course
+	}
+
+	.lt-ie8 & {
+		& .utilities {
+			width: 60px;
+		}
+	}
+}
+
+// ----- footer
+
+footer {
+
+	p {
+		font-size: 16px;
+	}
+
+	a { 
+		color: $red; 
+	}
+
+	@media screen and (max-width: $small) {
+		padding-bottom: 1em;
+
+		.alignright,
+		.alignleft {
+			font-size: 14px;
+			margin: 0.15em;
+			text-align: center;
+			width: 100%;
+		}
+	}
+}
