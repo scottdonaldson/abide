@@ -164,8 +164,8 @@ $(document).ready(function(){
 	$(document).mousemove(function(e){
 		mouseX = e.pageX;
 		mouseY = e.pageY - $(window).scrollTop(); // need to subtract scrollTop to get relative to window
-		needleX = needle.offset().left + 102;
-		needleY = needle.offset().top - $(window).scrollTop() + 102;
+		needleX = needle.offset().left + needle.width()/2;
+		needleY = needle.offset().top - $(window).scrollTop() + needle.height()/2;
 		if (mouseX > needleX) { 
 			angle = Math.atan((mouseY - needleY)/(mouseX - needleX));
 			angle = 180 * angle/Math.PI + 90;  // convert radians to degrees and add 90 
