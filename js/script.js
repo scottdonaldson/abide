@@ -175,14 +175,14 @@ $(document).ready(function(){
 			angle = 180 * angle/Math.PI + 270; // convert radians to degrees and add 90 
 										   	   // (to correct for initial position of needle)
 		}
-		// Don't let the mouse get too close to the needle - if so, reset it
-		if (Math.abs(mouseX - needleX) < 80 && Math.abs(mouseY - needleY) < 80) {
-			angle = $('.needle').attr('data-rotate');
+		// Don't set the angle if the mouse is hovering over it
+		if (!(Math.abs(mouseX - needleX) < 80 && Math.abs(mouseY - needleY) < 80)) {
+			needle.css({
+				'transform': 'rotate(' + angle +'deg)',
+				'-ms-transform': 'rotate(' + angle +'deg)',
+				'-webkit-transform': 'rotate(' + angle +'deg)',
+			});
 		}
-
-		angle = 3 * Math.round(angle/3); // round to nearest 3 degrees
-
-		needle.attr('data-rotate', angle);
 	});
 
 	/* ----- specialties and clients----- */

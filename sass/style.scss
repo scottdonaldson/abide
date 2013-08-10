@@ -303,12 +303,17 @@ header .full-content { position: relative; }
 		}					   // so that compass doesn't stay in exact center on screen resizing
 	}
 }
-// Output 120 (!) CSS transforms to allow us to rotate the compass
-@for $i from 0 through 120 {
+
+// -----
+// This was an elegant solution, but heavy in terms of CSS output (to the tune of 20kb).
+// Deprecated August 2013 in favor of inline styling via JS
+// -----
+
+/* @for $i from 0 through 120 {
 	[data-rotate="#{3*$i}"] {
 		@include transform(rotate(#{3*$i}deg))
 	}
-}
+} */
 
 // ----- header
 
